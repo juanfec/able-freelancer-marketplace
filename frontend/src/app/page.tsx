@@ -21,7 +21,7 @@ export default function Home() {
   useEffect(() => {
     getUsers()
       .then(setUsers)
-      .catch(() => setError("Failed to fetch users"));
+      .catch((err) => setError(err.message || "Failed to fetch users"));
   }, []);
 
   async function handleSubmit(e: React.FormEvent) {
