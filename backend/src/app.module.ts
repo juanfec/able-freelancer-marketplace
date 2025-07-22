@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './user.entity';
+import { UserService } from './user.service';
+import { UserController } from './user.controller';
 
 @Module({
   imports: [
@@ -14,9 +17,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       database: process.env.PGDATABASE || 'app_db',
       autoLoadEntities: true,
       synchronize: true,
+      entities: [User],
     }),
+    TypeOrmModule.forFeature([User]),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, UserController],
+  providers: [AppService, UserService],
 })
 export class AppModule {}
